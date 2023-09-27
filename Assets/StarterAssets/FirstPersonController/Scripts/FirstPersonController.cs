@@ -115,6 +115,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Duck();
 		}
 
 		private void LateUpdate()
@@ -245,6 +246,20 @@ namespace StarterAssets
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
+
+		private void Duck()
+		{
+			if (_input.duck)
+			{
+				Debug.Log("I am ducking");
+				// Change the y scale to 0.5, ideally with Mathf.Lerp
+			}
+			else
+			{
+				Debug.Log("I am not ducking");
+                // Change the y scale to 1, ideally with Mathf.Lerp
+            }
+        }
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
