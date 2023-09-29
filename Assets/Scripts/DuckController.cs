@@ -7,6 +7,14 @@ public class DuckController : MonoBehaviour
 {
     public float yDuckScale;
     public float duckSpeed;
+    public float overheadOffset;
+    public float overheadRadius;
+
+    [Tooltip("What layers are overhead objects on")]
+    public LayerMask overheadLayers;
+
+    [SerializeField]
+    private bool obstacleOverhead;
 
     private float _normalYScale;
 
@@ -34,6 +42,7 @@ public class DuckController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        OverheadCheck();
         Duck();
     }
 
@@ -59,7 +68,7 @@ public class DuckController : MonoBehaviour
             // Update the scale
             transform.localScale = new Vector3(transform.localScale.x, newYScale, transform.localScale.x);
         }
-        else if (!_input.duck && (transform.localScale.y != _normalYScale))  // if not ducking and not yet at the normal scale
+        else if (!_input.duck && (transform.localScale.y != _normalYScale) && !obstacleOverhead)  // if not ducking and not yet at the normal scale and no obstacles overhead
         {
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -78,5 +87,24 @@ public class DuckController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, newYScale, transform.localScale.x);
         }
         
+    }
+
+    private void OverheadCheck()
+    {
+        // set sphere position, with offset
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y + overheadOffset, transform.position.z);
+        obstacleOverhead = Physics.CheckSphere(spherePosition, overheadRadius, overheadLayers, QueryTriggerInteraction.Ignore);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (obstacleOverhead) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+
+        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + overheadOffset, transform.position.z), overheadRadius);
     }
 }
