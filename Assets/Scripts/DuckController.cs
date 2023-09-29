@@ -61,6 +61,10 @@ public class DuckController : MonoBehaviour
         }
         else if (!_input.duck && (transform.localScale.y != _normalYScale))  // if not ducking and not yet at the normal scale
         {
+            // set sphere position, with offset
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            //bool somethingOverhead = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+
             // Lerp towards the _normalScale
             newYScale = Mathf.Lerp(transform.localScale.y, _normalYScale, duckSpeed * Time.deltaTime);
 
