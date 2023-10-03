@@ -13,6 +13,12 @@ public class ArmController : MonoBehaviour
     [SerializeField]
     private GameObject arm;
 
+    [SerializeField]
+    float targetRaisedAngle;
+
+    [SerializeField]
+    float targetLoweredAngle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,19 +45,11 @@ public class ArmController : MonoBehaviour
 
     private void RaiseArm()
     {
-        Vector3 newRotation;
-
-        newRotation = Vector3.Lerp(arm.transform.eulerAngles, new Vector3(-90, 0, 0), raiseSpeed * Time.deltaTime);
-
-        arm.transform.eulerAngles = newRotation;
+        arm.transform.localRotation = Quaternion.Lerp(arm.transform.localRotation, Quaternion.Euler(targetRaisedAngle, 0, 0), raiseSpeed * Time.deltaTime);
     }
 
     private void LowerArm()
     {
-        Vector3 newRotation;
-
-        newRotation = Vector3.Lerp(arm.transform.eulerAngles, Vector3.zero, raiseSpeed * Time.deltaTime);
-
-        arm.transform.eulerAngles = newRotation;
+        arm.transform.localRotation = Quaternion.Lerp(arm.transform.localRotation, Quaternion.Euler(targetLoweredAngle, 0, 0), raiseSpeed * Time.deltaTime);
     }
 }

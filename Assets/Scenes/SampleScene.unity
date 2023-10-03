@@ -8856,8 +8856,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4526d907e8ca0c48b4d6b46e935d0b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raiseSpeed: 0
+  raiseSpeed: 5
   arm: {fileID: 1665374869}
+  targetRaisedAngle: -90
+  targetLoweredAngle: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
