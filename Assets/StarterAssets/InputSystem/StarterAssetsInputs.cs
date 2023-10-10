@@ -13,6 +13,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool duck;
+		public bool raiseArm;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -49,6 +50,15 @@ namespace StarterAssets
 		{
 			duck = value.isPressed;
 		}
+
+		public void OnRaiseArm(InputValue value)
+        {
+			Debug.Log($"OnRaiseArm value.isPressed is {value.isPressed}");
+			if (value.isPressed)
+			{
+				raiseArm = !raiseArm;
+			}
+        }
 #endif
 
 
